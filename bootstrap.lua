@@ -72,6 +72,7 @@ for service, list in pairs(http_runs) do
 	end
 end
 
+--executes the downloaded programs to download programs specific to the device.
 if (first == "turtle") then
 	shell.run("turtleBootstrap")
 else
