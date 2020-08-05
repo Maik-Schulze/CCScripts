@@ -13,9 +13,6 @@ Usage:
 --]]
 
 http_runs = {
-	["pastebin"] = {
-	
-	},
 	["github"] = {
 		--strip mining
 		["Maik-Schulze/CCScripts/master/strip.lua"] = strip,
