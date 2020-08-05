@@ -59,6 +59,6 @@ local response = request.readAll()
 request.close()
  
 --open a new file under the chosen program name and paste the GitHub program into it. The file gets closed after that.
-local file = fs.open(program, "w")
+local file = fs.open(program_name, "w")
 file.write(response)
 file.close()
