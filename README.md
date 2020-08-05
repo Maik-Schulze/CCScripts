@@ -8,7 +8,7 @@ A program for downloading other programs from GitHub.
 
 Usage:
 - pastebin get zvx63NNF github
-- github get <GITHUB-PATH> <PROGRAM-NAME>
+- github get [GITHUB-PATH] [PROGRAM-NAME]
 
 bootstrap.lua
 ---------
@@ -17,7 +17,7 @@ A program to download multiple programs at once.
 
 Usage:
 - pastebin get prsnEEAi bootstrap
-- bootstrap <DEVICE-TYPE>
+- bootstrap [DEVICE-TYPE]
 
 turtleBootstrap.lua
 ---------
