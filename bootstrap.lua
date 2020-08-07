@@ -22,7 +22,7 @@ if (argc ~= 1) then
 end
 
 --extract the first parameter.
-local first = argt[1]
+local first = string.lower(argt[1])
 
 --if the first parameter is 'help' print out some info on how to use this.
 if (first == "help") then
@@ -30,17 +30,8 @@ if (first == "help") then
 	print("Only <DEVICE-TYPE> and 'help' are valid parameters")
 	print("<DEVICE-TYPE> \t has to be either 'turtle' or 'computer'.")
 	return
-end
-
---if the first parameter isn't 'turtle' or 'computer' give out an error message and quit.
-if ((first ~= "turtle") and (first ~= "computer")) then
-	print("Syntax Error.")
-	print("For tips on correct usage type 'bootstrap help'.")
-	return
-end
-
 --if the first parameter is 'turtle' download the program belonging to a turtle.
-if (first == "turtle") then
+else if (first == "turtle") then
 	http_runs = {
 		["pastebin"] = {
 			--github loader
@@ -50,10 +41,8 @@ if (first == "turtle") then
 			["Maik-Schulze/CCScripts/master/turtleBootstrap.lua"] = "turtleBootstrap",
 		},
 	}
-end
-
 --if the first parameter is 'computer' download the program belonging to a computer.
-if (first == "computer") then
+else if (first == "computer") then
 	http_runs = {
 		["pastebin"] = {
 			--github loader
@@ -63,6 +52,11 @@ if (first == "computer") then
 			["Maik-Schulze/CCScripts/master/computerBootstrap.lua"] = "computerBootstrap",
 		},
 	}
+--if the first parameter isn't 'turtle' or 'computer' give out an error message and quit.
+else
+	print("Syntax Error.")
+	print("For tips on correct usage type 'bootstrap help'.")
+	return
 end
 
 for service, list in pairs(http_runs) do
