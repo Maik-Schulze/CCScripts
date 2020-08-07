@@ -52,7 +52,7 @@ elseif (first == "computer") then
 			["Maik-Schulze/CCScripts/master/computerBootstrap.lua"] = "computerBootstrap",
 		},
 	}
---if the first parameter isn't 'turtle' or 'computer' give out an error message and quit.
+--if the first parameter isn't one of the above give out an error message and quit.
 else
 	print("Syntax Error.")
 	print("For tips on correct usage type 'bootstrap help'.")
