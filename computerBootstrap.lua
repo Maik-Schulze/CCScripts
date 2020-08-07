@@ -14,8 +14,7 @@ Usage:
 
 http_runs = {
 	["github"] = {
-		--example stripmine
-		--["Maik-Schulze/CCScripts/master/strip.lua"] = strip,
+		["Maik-Schulze/CCScripts/master/format.lua"] = "format",
 	},
 }
 
