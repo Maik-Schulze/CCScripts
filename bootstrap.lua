@@ -7,31 +7,10 @@ Program to download multiple programs in the Minecraft Mod ComputerCraft at once
 
 Usage:
 	> pastebin get prsnEEAi bootstrap
-	> bootstrap <DEVICE-TYPE>
 --]]
 
---get the parameters as a table and its lenght.
-local argt = { ... }
-local argc = #argt
-
---if the parameter table has more than 1 entry give out an error message and quit.
-if (argc ~= 1) then
-	print("Syntax Error.")
-	print("For tips on correct usage type 'bootstrap help'.")
-	return
-end
-
---extract the first parameter.
-local first = string.lower(argt[1])
-
---if the first parameter is 'help' print out some info on how to use this.
-if (first == "help") then
-	print("bootstrap <DEVICE-TYPE>")
-	print("Only <DEVICE-TYPE> and 'help' are valid parameters")
-	print("<DEVICE-TYPE> \t has to be either 'turtle' or 'computer'.")
-	return
---if the first parameter is 'turtle' download the program belonging to a turtle.
-elseif (first == "turtle") then
+--if the executing device is 'turtle' download the program belonging to a turtle.
+if turtle then
 	http_runs = {
 		["pastebin"] = {
 			--github loader
@@ -41,8 +20,8 @@ elseif (first == "turtle") then
 			["Maik-Schulze/CCScripts/master/turtleBootstrap.lua"] = "turtleBootstrap",
 		},
 	}
---if the first parameter is 'computer' download the program belonging to a computer.
-elseif (first == "computer") then
+--if not download the program belonging to a computer.
+else
 	http_runs = {
 		["pastebin"] = {
 			--github loader
@@ -52,12 +31,7 @@ elseif (first == "computer") then
 			["Maik-Schulze/CCScripts/master/computerBootstrap.lua"] = "computerBootstrap",
 		},
 	}
---if the first parameter isn't one of the above give out an error message and quit.
-else
-	print("Syntax Error.")
-	print("For tips on correct usage type 'bootstrap help'.")
-	return
-end
+end	
 
 for service, list in pairs(http_runs) do
 	for id, program in pairs(list) do
@@ -67,7 +41,7 @@ for service, list in pairs(http_runs) do
 end
 
 --executes the downloaded programs to download programs specific to the device.
-if (first == "turtle") then
+if turtle then
 	shell.run("turtleBootstrap")
 else
 	shell.run("computerBootstrap")
