@@ -1,46 +1,63 @@
-local distance = 15
-local branchLenght = 8
-local rootLenght = 3
+--Slot Settings
 local torchSlot = 1
 local chestSlot = 2
-local fuelSlot = 3
+local coalSlot = 3
 local buildingSlot = 4
+--Mine Settings
+local branchAmount = 15
+local branchLenght = 8
+local rootLenght = 3
+
+
 local err = false
+local fuelUsage = (rootLenght + (branchLenght * 4) + 9) * branchAmount
+
+local function refuel()
+	if (turtle.getFuelLevel() < (fuelUsage + 1))
+		turtle.select(coalSlot)
+		turtle.refuel(fuelUsage / 80)
+	end
+end
 
 local function check()
-	local torch = turtle.getItemCount(1)
-	if torch == 0 then
-		print("There are no torches in slot 1 the turtle.")
+	local torch = turtle.getItemDetail(torchSlot)
+	if ((torch.name ~= "minecraft:torch") or (torch.count == 0)) then 
+		print("No torches in slot "..torchSlot.."!")
 		err = true
 	else
-		print("There are", torch, "torches in the turtle.")
+		print("There are "..torch.count.." torches in slot "..torchSlot.."!")
 	end
 	
-	local chest = turtle.getItemCount(2)
-	if chest == 0 then
-		print("There are no chests in slot 2 the turtle.")
+	local chest = turtle.getItemDetail(chestSlot)
+	if ((chest.name ~= "minecraft:chest") or (chest.count == 0)) then 
+		print("No chests in slot "..chestSlot.."!")
+		err = true 
+	else
+		print("There are "..chest.count.." chests in slot "..chestSlot.."!")
+	end
+	
+	local coal = turtle.getItemDetail(coalSlot)
+	if ((coal.name ~= "minecraft:coal") or (coal.count <= (fuelUsage / 80)) or (turtle.getFuelLevel() == 0)) then 
+		print("No coal in turtle or slot "..coalSlot.."!")
 		err = true
 	else
-		print("There are", chest, "chests in the turtle.")
+		print("There are "..coal.count.." pieces of coal in slot "..coalSlot.." and the fuel level is "..turtle.getFuelLevel().."!")
 	end
 	
-	local fuel = turtle.getItemCount(3)
-	local fuelLevel = turtle.getFuelLevel()
-	if fuel == 0 and fuelLevel == 0 then
-		print("There are no fuel and fuel items in slot 3 in the turtle.")
-		err = true
+	local building = turtle.getItemDetail(buildingSlot)
+	if ((building.name ~= "minecraft:cobblestone") or (building.count == 0)) then 
+		print("No cobblestone in slot "..buildingSlot.."!")
+		err = true 
 	else
-		print("There are", fuel, "fuel items and", fuelLevel, "fuel in the turtle.")
+		print("There are "..building.count.." cobblestone in slot "..buildingSlot.."!")
 	end
 	
-	local building = turtle.getItemCount(4)
-	if building == 0 then
-		print("There are no building blocks in slot 4 the turtle.")
-		err = true
-	else
-		print("There are", building, "building blocks in the turtle.")
+	if (err == true) then
+		print("An Error occurred.")
 	end
-	
+end
+
+local function stashItems()
 	if turtle.getItemCount(16) > 0 then
 		turtle.select(chestSlot)
 		turtle.digDown()
@@ -48,25 +65,16 @@ local function check()
 		for slot = 5, 16, 1 do
 			turtle.select(slot)
 			turtle.dropDown()
-			sleep(1.5)
+			sleep(0.5)
 		end
 		turtle.select(5)
-	end
-end
-
-local function refuel()
-	local fuel = turtle.getFuelLevel()
-	while (turtle.getItemCount(fuelSlot) > 0) and (turtle.getFuelLevel() < 100) do
-		turtle.select(fuelSlot)
-		turtle.refuel(1)
-		fuel = fuel - 1
 	end
 end
 
 local function placeTorch()
 	turtle.up()
 	turtle.turnLeft()
-	if turtle.detect() == false then
+	if (turtle.detect() == false) then
 		turtle.select(buildingSlot)
 		turtle.place()
 	end
@@ -76,7 +84,7 @@ local function placeTorch()
 	turtle.placeUp()
 end
 
-local function dMove()
+local function digAndMove()
 	repeat
 		turtle.dig()
 	until turtle.detect() == false
@@ -100,7 +108,7 @@ end
 
 local function mine()
 	for i = 0, rootLenght, 1 do
-		dMove()
+		digAndMove()
 	end
 	
 	turtle.back()
@@ -109,7 +117,7 @@ local function mine()
 	turtle.turnLeft()
 	
 	for i = 1, branchLenght, 1 do
-		dMove()
+		digAndMove()
 	end
 	
 	placeTorch()
@@ -117,7 +125,7 @@ local function mine()
 	turnAround()
 	
 	for i = 1, branchLenght * 2, 1 do
-		dMove()
+		digAndMove()
 	end
 	
 	placeTorch()
@@ -125,22 +133,24 @@ local function mine()
 	turnAround()
 	
 	for i = 1, branchLenght, 1 do
-		dMove()
+		digAndMove()
 	end
 	
 	turtle.turnRight()
 end
 
 for i = 1, distance, 1 do
+	term.clear()
 	refuel()
+	stashItems()
 	check()
-	if Error == 1 then 
-		print("Not enough resources, need a refill.")
+	if (err == true) then
 		repeat
 			sleep(10)
-			Recheck()
-			Check()
-		until Error == 0
+			term.clear()
+			refuel()
+			check()
+		until err == 0
 	end
 	mine()
 end
