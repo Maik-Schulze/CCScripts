@@ -31,7 +31,7 @@ if (first == "help") then
 	print("<DEVICE-TYPE> \t has to be either 'turtle' or 'computer'.")
 	return
 --if the first parameter is 'turtle' download the program belonging to a turtle.
-else if (first == "turtle") then
+elseif (first == "turtle") then
 	http_runs = {
 		["pastebin"] = {
 			--github loader
@@ -42,7 +42,7 @@ else if (first == "turtle") then
 		},
 	}
 --if the first parameter is 'computer' download the program belonging to a computer.
-else if (first == "computer") then
+elseif (first == "computer") then
 	http_runs = {
 		["pastebin"] = {
 			--github loader
