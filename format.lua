@@ -10,7 +10,7 @@ Usage:
 --]]
 
 for _, f in pairs(fs.list("/")) do
-	if ((not fs.isReadOnly(f)) and (f ~= "startup.lua")) then
+	if (not ((fs.isReadOnly(f)) or (f == "startup.lua")) then
 		fs.delete(f)
 	end
 end
