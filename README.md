@@ -4,7 +4,7 @@ A collection of Lua scripts for the Minecraft Mod ComputerCraft.
 github.lua
 ---------
 
-A program for downloading other programs from GitHub.
+A program for downloading programs from GitHub.
 
 Usage:
 - pastebin get zvx63NNF github
@@ -17,14 +17,11 @@ A program to download multiple programs at once.
 
 Usage:
 - pastebin get prsnEEAi bootstrap
-- bootstrap [DEVICE-TYPE]
 
 turtleBootstrap.lua
 ---------
 
-This is effectively a copy of 'bootstrap.lua'
-that downloads more programs for the turtle
-in the Minecraft Mod ComputerCraft.
+A program that downloads more programs for the turtle.
 
 Usage:
 - github get Maik-Schulze/CCScripts/master/turtleBootstrap.lua turtleBootstrap
@@ -33,13 +30,11 @@ Usage:
 computerBootstrap.lua
 ---------
 
-This is effectively a copy of 'bootstrap.lua'
-that downloads more programs for the computer
-in the Minecraft Mod ComputerCraft.
+A program that downloads more programs for the computer.
 
 Usage:
-- github get Maik-Schulze/CCScripts/master/computerBootstrap.lua turtleBootstrap
-- turtleBootstrap
+- github get Maik-Schulze/CCScripts/master/computerBootstrap.lua computerBootstrap
+- computerBootstrap
 
 strip.lua
 ---------
