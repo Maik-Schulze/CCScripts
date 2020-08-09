@@ -13,7 +13,7 @@ local err = false
 local fuelUsage = (rootLenght + (branchLenght * 4) + 9) * branchAmount
 
 local function refuel()
-	if (turtle.getFuelLevel() < (fuelUsage + 1))
+	if (turtle.getFuelLevel() < (fuelUsage + 1)) then
 		turtle.select(coalSlot)
 		turtle.refuel(fuelUsage / 80)
 	end
@@ -139,7 +139,7 @@ local function mine()
 	turtle.turnRight()
 end
 
-for i = 1, distance, 1 do
+for i = 1, branchAmount do
 	term.clear()
 	refuel()
 	stashItems()
